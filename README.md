@@ -8,6 +8,6 @@ A Customized Theme For Awesome WM
 - restart awesome
 ```
 
-## Original Theme from [lcpz](github.com/lcpz/awesome-copycats)
+## Original Theme from [lcpz](https://github.com/lcpz/awesome-copycats)
 
-## Author: [Ybenel](github.com/r2dr0dn)
+## Author: [Ybenel](https://github.com/r2dr0dn)
