@@ -1,9 +1,7 @@
 --[[
-
-     FalleN_Rainbow Awesome WM theme 2.0
-     github.com/lcpz (Original Theme)
-     github.com/r2dr0dn (Customized)
-
+    Fallen_rainbow Awesome WM Theme 1.0
+    github.com/r2dr0dn/fallen_rainbow
+    inspired from github.com/lcpz (awesome-copycats 'rainbow')
 --]]
 
 local gears = require("gears")
@@ -11,6 +9,7 @@ local lain  = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
 local dpi   = require("beautiful.xresources").apply_dpi
+-- Ybenel.Bar.Mocp    = require("widgets.toggles")
 
 local os = os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -19,18 +18,18 @@ local theme                                     = {}
 theme.default_dir                               = require("awful.util").get_themes_dir() .. "default"
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/fallen_rainbow"
 theme.wallpaper                                 = theme.dir .. "/wall.png"
-theme.font                                      = "Terminus 9"
+theme.font                                      = "scientifica 9"
 theme.font2                                     = "Mononoki Nerd Font 9"
 theme.fg_normal                                 = "#9E9E9E"
 theme.fg_focus                                  = "#EBEBFF"
-theme.bg_normal                                 = "#242424"
+theme.bg_normal                                 = "#282C34"
 theme.bg_focus                                  = "#242424"
 theme.fg_urgent                                 = "#000000"
 theme.bg_urgent                                 = "#FFFFFF"
 theme.border_width                              = dpi(1)
 theme.border_normal                             = "#242424"
 theme.border_focus                              = "#EBEBFF"
-theme.taglist_fg_focus                          = "#EDEFFF"
+theme.taglist_fg_focus                          = "#8DC702"
 theme.taglist_bg_focus                          = "#242424"
 theme.menu_height                               = dpi(16)
 theme.menu_width                                = dpi(140)
@@ -45,7 +44,7 @@ theme.awesome_icon                              = theme.dir .."/icons/awesome.pn
 theme.menu_submenu_icon                         = theme.dir .."/icons/submenu.png"
 theme.taglist_squares_sel                       = theme.dir .. "/icons/square_sel.png"
 theme.taglist_squares_unsel                     = theme.dir .. "/icons/square_unsel.png"
-theme.useless_gap                               = dpi(8)
+theme.useless_gap                               = dpi(6)
 theme.layout_txt_tile                           = "[t]"
 theme.layout_txt_tileleft                       = "[l]"
 theme.layout_txt_tilebottom                     = "[b]"
@@ -81,6 +80,18 @@ theme.titlebar_maximized_button_normal_inactive = theme.default_dir.."/titlebar/
 theme.titlebar_maximized_button_focus_inactive  = theme.default_dir.."/titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_active   = theme.default_dir.."/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active    = theme.default_dir.."/titlebar/maximized_focus_active.png"
+
+-- Menu Icons
+theme.browser_ico = theme.dir .. "/icons/browser.png"
+theme.stremio_ico = theme.dir .. "/icons/stremio.png"
+theme.gimp_ico = theme.dir .. "/icons/gimp.png"
+theme.atom_ico = theme.dir .. "/icons/atom.png"
+theme.telegram_ico = theme.dir .. "/icons/telegram.png"
+theme.terminal_ico = theme.dir .. "/icons/xterm.png"
+theme.logout_ico = theme.dir .. "/icons/logout.png"
+theme.sleep_ico = theme.dir .. "/icons/sleep.png"
+theme.restart_ico = theme.dir .. "/icons/restart.png"
+theme.exit_ico = theme.dir .. "/icons/shutdown.png"
 
 -- lain related
 theme.layout_txt_cascade                        = "[cascade]"
@@ -145,7 +156,6 @@ theme.mpd = lain.widget.mpd({
             artist = ""
             title  = ""
         end
-
         widget:set_markup(markup.font(theme.font, markup(gray, artist) .. markup(white, title)))
     end
 })
@@ -198,6 +208,40 @@ theme.volume.bar:buttons(my_table.join (
 local volumebg = wibox.container.background(theme.volume.bar, "#585858", gears.shape.rectangle)
 local volumewidget = wibox.container.margin(volumebg, dpi(7), dpi(7), dpi(5), dpi(5))
 
+
+-- MOC
+local love_mc = wibox.widget.textbox(markup.font(theme.font2, markup("#ff006a",'♥ ')))
+local prev_next_mc = wibox.widget.textbox(markup.font(theme.font2, markup('#00ffff', ' ')))
+theme.moc = lain.widget.contrib.moc({
+  settings = function()
+    moc_notification_preset.fg = white
+    artist = moc_now.artist .. " "
+    title = moc_now.title .. " "
+    if moc_now.state == "PAUSE" then
+      artist = "Moc "
+      title  = "Paused "
+    elseif moc_now.state == "STOP" then
+      artist = ""
+      title = "Nothing To Play"
+    end
+    widget:set_markup(markup.font(theme.font, markup(gray, artist) .. markup(white, title)))
+  end
+})
+love_mc:buttons(my_table.join(awful.button({ }, 2,
+function ()
+  os.execute('mocp -G')
+  theme.moc.update()
+end)))
+prev_next_mc:buttons(my_table.join(awful.button({}, 1,
+function ()
+  os.execute('mocp -f')
+  theme.moc.update()
+end)))
+-- prev_next_mc:buttons(my_table.join(awful.button({}, 3,
+-- function ()
+--   os.execute('mocp -r')
+--   theme.moc.update()
+-- end)))
 -- Weather
 theme.weather = lain.widget.weather({
     city_id = 2643743, -- placeholder (London)
@@ -208,7 +252,7 @@ theme.weather = lain.widget.weather({
 local memicon = wibox.widget.imagebox(theme.widget_mem)
 local mem = lain.widget.mem({
     settings = function()
-        widget:set_markup(markup.font(theme.font2, " " .. mem_now.used .. "MB "))
+        widget:set_markup(markup.font(theme.font2, markup("#10e81b", "") .. "  " .. markup(gray, mem_now.used) .. "MB "))
     end
 })
 
@@ -216,21 +260,21 @@ local mem = lain.widget.mem({
 local cpuicon = wibox.widget.imagebox(theme.widget_cpu)
 local cpu = lain.widget.cpu({
     settings = function()
-        widget:set_markup(markup.font(theme.font2, " " .. cpu_now.usage .. "% "))
+        widget:set_markup(markup.font(theme.font2, markup("#16c982", "") .. "  " .. markup(gray, cpu_now.usage) .. "% "))
     end
 })
 
 local temp = lain.widget.temp({
     settings = function()
-        widget:set_markup(markup.font(theme.font2, " " .. coretemp_now .. "°C "))
+        widget:set_markup(markup.font(theme.font2, markup("#e81010", "") .. " " .. markup(gray, coretemp_now) .. "°C "))
     end
 })
 local tempicon = wibox.widget.imagebox(theme.widget_temp)
 
-local mem_wid = wibox.container.margin(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }, 2, 3), "#7197E7"
-local cpu_wid = wibox.container.margin(wibox.widget { cpuicon, cpu.widget, layout = wibox.layout.align.horizontal }, 3, 4), "#A77AC4"
-local temp_wid = wibox.container.margin(wibox.widget { tempicon, temp.widget, layout = wibox.layout.align.horizontal }, 4, 4), "#7197E7"
-
+local mem_wid = wibox.container.margin(wibox.widget {mem.widget, layout = wibox.layout.align.horizontal }, 2, 3), "#7197E7"
+local cpu_wid = wibox.container.margin(wibox.widget {cpu.widget, layout = wibox.layout.align.horizontal }, 3, 4), "#A77AC4"
+local temp_wid = wibox.container.margin(wibox.widget {temp.widget, layout = wibox.layout.align.horizontal }, 4, 4), "#7197E7"
+local volum = wibox.widget.textbox(markup.font(theme.font2, markup("#88ff00",'')))
 -- Separators
 local first = wibox.widget.textbox(markup.font("Terminus 4", " "))
 local spr   = wibox.widget.textbox(' ')
@@ -286,10 +330,13 @@ function theme.at_screen_connect(s)
             first,
             s.mytaglist,
             spr,
-            s.mytxtlayoutbox,
+            -- s.mytxtlayoutbox,
             --spr,
             s.mypromptbox,
             spr,
+            love_mc,
+            theme.moc,
+            prev_next_mc,
         },
         spr,
         --s.mytasklist, -- Middle widget
@@ -303,6 +350,8 @@ function theme.at_screen_connect(s)
             cpu_wid,
             mem_wid,
             temp_wid,
+            -- theme.mocp,
+            volum,
             volumewidget,
             mytextclock,
         },
