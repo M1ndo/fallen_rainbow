@@ -38,8 +38,7 @@ beautiful.init(theme_path)
  #+end_src
 
 ** Screenshot
-<img src="https://github.com/m1ndo/fallen_rainbow/blob/master/img/fallen_rainbow.png" alt="Awesome" border="0">
-
+[[https://github.com/m1ndo/fallen_rainbow/blob/master/img/fallen_rainbow.png]]
 
 ** Report Bugs [[https://github.com/m1ndo/fallen_rainbow/issues][Here]]
 ** Author: [[https://github.com/m1ndo][Ybenel]]
