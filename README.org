@@ -1,0 +1,45 @@
+#+AUTHOR: Ybenel (github.com/m1ndo)
+#+TITLE: fallen_rainbow (An AwesomeWM Theme)
+
+* fallen_rainbow
+A Customized Theme For Awesome WM
+
+** Requirements
+*** Fonts
+The Following Fonts Should Be Installed.
+[[https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/Mononoki/Regular/complete/mononoki-Regular%20Nerd%20Font%20Complete.ttf][Mononoki Nerd Font]]
+[[https://github.com/nerdypepper/scientifica/releases/tag/v2.3][Scientifica]]
+[[https://github.com/eliheuer/caskaydia-cove/][Caskaydia Cove]]
+[[https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode][Fira Code Nerd Font Mono]]
+*** Mspot/Spot Widget
++ *Mspot* Widget Is An AwesomeWM Widget For Spotify/Mpd. In Order to use it,
+Please Install The Following script in ur =/usr/local/bin/=  folder
+#+begin_src shell
+sudo wget -O /usr/local/bin/getmusic https://github.com/M1ndo/dotfiles/raw/master/.config/eww/scripts/getmusic
+sudo chmod +x /usr/local/bin/getmusic
+#+end_src
++ *Spot* Widget Is An AwesomeWM Widget For Spotify, In Order To use it,
+Please Install The Following script in ur =/usr/local/bin/=  folder
+#+begin_src shell
+sudo wget -O /usr/local/bin/sp https://github.com/M1ndo/dotfiles/raw/master/Scripts/sp
+sudo chmod +x /usr/local/bin/sp
+#+end_src
+** Installation
++ Copy *fallen_rainbow* folder to ~/.config/awesome/theme
++ Copy widgets/ to =lain/widget/contrib= folder located either in =~/.config/awesome/lain/widget/contrib= or =/usr/share/awesome/lib/lain/widget/contrib=
++ Change the selected theme in your awesome config file
+ #+begin_src lua
+local themes = {
+    "fallen_rainbow",
+}
+local chosen_theme = themes[1]
+local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
+beautiful.init(theme_path)
+ #+end_src
+
+** Screenshot
+<img src="https://github.com/m1ndo/fallen_rainbow/blob/master/img/fallen_rainbow.png" alt="Awesome" border="0">
+
+
+** Report Bugs [[https://github.com/m1ndo/fallen_rainbow/issues][Here]]
+** Author: [[https://github.com/m1ndo][Ybenel]]
